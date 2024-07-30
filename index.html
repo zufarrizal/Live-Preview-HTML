@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Preview HTML</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-brand">Live Preview HTML</div>
+            <button id="beautifyButton" class="btn btn-beautify">Beautify</button>
+        </div>
+        <div class="main">
+            <div class="editor">
+                <textarea id="htmlCode" placeholder="Type your HTML code here..."></textarea>
+            </div>
+            <div class="preview">
+                <iframe id="preview"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-beautify@1.14.0/js/lib/beautify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-beautify@1.14.0/js/lib/beautify-html.js"></script>
+    <script>
+        const textarea = document.getElementById('htmlCode');
+        const iframe = document.getElementById('preview');
+        const beautifyButton = document.getElementById('beautifyButton');
+
+        textarea.addEventListener('input', () => {
+            const code = textarea.value;
+            iframe.srcdoc = code;
+        });
+
+        beautifyButton.addEventListener('click', () => {
+            const code = textarea.value;
+            const beautifiedCode = html_beautify(code, {
+                indent_size: 2,
+                space_in_empty_paren: true
+            });
+            textarea.value = beautifiedCode;
+            iframe.srcdoc = beautifiedCode;
+        });
+    </script>
+</body>
+
+</html>
